@@ -30,7 +30,14 @@ namespace CV_1
         public static double GaussianKernel(double[] x, double[] y, double variance)
         {
             double result = 0;
-            result = Math.Exp(-(EuclideanDistance(x,y) / 2 * Math.Pow(variance, 2)));
+
+            double temp = 0;
+            for (int i = 0; i < x.Length; i++)
+            {
+                temp += Math.Pow(x[i] - y[i], 2);
+            }
+
+            result = Math.Exp(-(temp / 2 * Math.Pow(variance, 2)));
 
             return result;
         }

@@ -11,22 +11,27 @@ namespace CV_1
     {
         public List<GraphNode> NodeList { get; }
 
-        public Graph(int nodes)
+        public Graph(List<Iris> irisList)
         {
             NodeList = new List<GraphNode>();
             // _rnd = new Random();
+            foreach (var iris in irisList)
+            {
+                NodeList.Add(new GraphNode(iris));
+            }
         }
 
         public void PrintToCSV(string filePath)
         {
             var csv = new StringBuilder();
+            csv.Append("Source;Target");
             for (int i = 0; i < NodeList.Count; i++)
             {
                 for (int j = i + 1; j < NodeList.Count; j++)
                 {
                     if (i != j && NodeList[i].Neighbors.Contains(NodeList[j]))
                     {
-                        //csv.Append($"{NodeList[i].Id};{NodeList[j].Id}\n");
+                        csv.Append($"{NodeList[i].IrisInstance.Id};{NodeList[j].IrisInstance.Id}\n");
                     }
                 }
             }
@@ -48,6 +53,21 @@ namespace CV_1
             }
 
             return matrix;
+        }
+
+        public int CountEdges()
+        {
+            int numberOfEdges = 0;
+
+            foreach (var node in NodeList)
+            {
+                foreach (var t in node.Neighbors)
+                {
+                    numberOfEdges++;
+                }
+            }
+
+            return numberOfEdges / 2;
         }
     }
 }

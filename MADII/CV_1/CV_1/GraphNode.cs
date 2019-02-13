@@ -13,9 +13,10 @@ namespace CV_1
         public int Degree { get; set; }
         public float ClusteringCoefficient { get; set; }
 
-        public GraphNode()
+        public GraphNode(Iris iris)
         {
             Neighbors = new List<GraphNode>();
+            IrisInstance = iris;
         }
     }
 }
