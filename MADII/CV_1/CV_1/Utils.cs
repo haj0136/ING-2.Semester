@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CV_1
 {
-    public class Utils
+    public static class Utils
     {
         public static double EuclideanDistance(double[] a, double[] b)
         {
@@ -29,17 +29,24 @@ namespace CV_1
 
         public static double GaussianKernel(double[] x, double[] y, double variance)
         {
-            double result = 0;
-
             double temp = 0;
             for (int i = 0; i < x.Length; i++)
             {
                 temp += Math.Pow(x[i] - y[i], 2);
             }
 
-            result = Math.Exp(-(temp / 2 * Math.Pow(variance, 2)));
+            double result = Math.Exp(-(temp / 2 * Math.Pow(variance, 2)));
 
             return result;
+        }
+
+        public static IEnumerable<T> SliceRow<T>(this T[,] array, int row)
+        {
+            for (var i = array.GetLowerBound(1); i <= array.GetUpperBound(1); i++)
+            {
+                if(i == row) continue;
+                yield return array[row, i];
+            }
         }
     }
 }

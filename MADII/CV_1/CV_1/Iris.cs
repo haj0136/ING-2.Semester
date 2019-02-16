@@ -39,6 +39,11 @@ namespace CV_1
         {
             return new double[] { Sepal_lenght, Sepal_width, Petal_lenght, Petal_width };
         }
+
+        public override string ToString()
+        {
+            return $"Id:{Id}";
+        }
     }
 
     public enum Iris_class

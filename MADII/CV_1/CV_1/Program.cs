@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CV_1
 {
@@ -16,13 +14,16 @@ namespace CV_1
         {
             // sigma
             const double variance = 1;
-            const double epsilon = 0.8d;
+            const double epsilon = 0.9d;
+            const int k = 3;
 
             var dl = new DataLoader();
             List<Iris> irisList = dl.LoadData();
 
             var similarityMatrix = new double[irisList.Count, irisList.Count];
-            var graph = new Graph(irisList);
+            var graph1 = new Graph(irisList);
+            var graph2 = new Graph(irisList);
+            var graph3 = new Graph(irisList);
 
             for (int i = 0; i < irisList.Count; i++)
             {
@@ -30,16 +31,41 @@ namespace CV_1
                 {
                     similarityMatrix[i, j] = Utils.GaussianKernel(irisList[i].ToArray(), irisList[j].ToArray(), variance);
 
-                    if(similarityMatrix[i,j] > epsilon)
+                    if (similarityMatrix[i, j] > epsilon && i != j)
                     {
-                        graph.NodeList[i].Neighbors.Add(graph.NodeList[j]);
-                        graph.NodeList[j].Neighbors.Add(graph.NodeList[i]);
+                        graph1.NodeList[i].Neighbors.Add(graph1.NodeList[j]);
                     }
                 }
             }
 
-            graph.PrintToCSV("test.csv");
-            Console.WriteLine(graph.CountEdges());
+            for (int i = 0; i < irisList.Count; i++)
+            {
+                var row = similarityMatrix.SliceRow(i).ToList();
+                var kNearestNeighbors = row.OrderByDescending(x => x).Take(k);
+                foreach (double kNearestNeighbor in kNearestNeighbors)
+                {
+                    int index = row.IndexOf(kNearestNeighbor);
+
+                    if (!graph2.NodeList[i].Neighbors.Contains(graph2.NodeList[index]))
+                    {
+                        graph2.NodeList[i].Neighbors.Add(graph2.NodeList[index]);
+                        graph2.NodeList[index].Neighbors.Add(graph2.NodeList[i]);
+
+                    }
+
+                    if (kNearestNeighbor > epsilon && !graph3.NodeList[i].Neighbors.Contains(graph3.NodeList[index]))
+                    {
+                        graph3.NodeList[i].Neighbors.Add(graph3.NodeList[index]);
+                        graph3.NodeList[index].Neighbors.Add(graph3.NodeList[i]);
+                    }
+                }
+            }
+
+            graph1.PrintToCSV("e-radius.csv");
+            graph2.PrintToCSV("KNN-method.csv");
+            graph3.PrintToCSV("combined.csv");
+
+            Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
         }
 
@@ -50,7 +76,7 @@ namespace CV_1
             {
                 for (int j = 0; j < 150; j++)
                 {
-                    Console.Write($"{matrix[i,j]:F2} ");
+                    Console.Write($"{matrix[i, j]:F2} ");
                 }
                 Console.WriteLine();
             }

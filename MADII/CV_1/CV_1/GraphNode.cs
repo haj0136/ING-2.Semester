@@ -16,7 +16,12 @@ namespace CV_1
         public GraphNode(Iris iris)
         {
             Neighbors = new List<GraphNode>();
-            IrisInstance = iris;
+            IrisInstance = new Iris(iris);
+        }
+
+        public override string ToString()
+        {
+            return IrisInstance.Id.ToString();
         }
     }
 }
