@@ -14,7 +14,7 @@ namespace CV_1
         {
             // sigma
             const double variance = 1;
-            const double epsilon = 0.9d;
+            const double epsilon = 0.8d;
             const int k = 3;
 
             var dl = new DataLoader();

@@ -24,7 +24,7 @@ namespace CV_1
         public void PrintToCSV(string filePath)
         {
             var csv = new StringBuilder();
-            csv.Append("Source;Target");
+            csv.Append("Source;Target\n");
             for (int i = 0; i < NodeList.Count; i++)
             {
                 for (int j = i + 1; j < NodeList.Count; j++)
