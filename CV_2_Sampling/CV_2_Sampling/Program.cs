@@ -14,7 +14,7 @@ namespace CV_2_Sampling
     {
         static void Main(string[] args)
         {
-            const double RnsProbability = 0.15; // 15% size 
+            const double rnsProbability = 0.15; // 15% size 
 
             // Generate and print graph
             Console.WriteLine("Start generating graphs.");
@@ -25,7 +25,22 @@ namespace CV_2_Sampling
             //var edgesCount = graphBA.CountEdges();
             //var edgesCount2 = graphER.CountEdges();
 
+            Console.WriteLine("----RNS START----");
+            var sampledGraphBaByRns = graphBA.RandomNodeSampling(rnsProbability);
+            var sampledGraphErByRns = graphER.RandomNodeSampling(rnsProbability);
+            Console.WriteLine("----RNS COMPLETE-----");
 
+            Console.WriteLine("----RDN START----");
+            var sampledGraphBaByRdn = graphBA.DegreeBasedSampling(probability: rnsProbability);
+            var sampledGraphErByRdn = graphER.DegreeBasedSampling(rnsProbability);
+            Console.WriteLine("----RDN COMPLETE----");
+
+            graphBA.PrintToCSV("graphBA.csv");
+            graphER.PrintToCSV("graphER.csv");
+            sampledGraphBaByRns.PrintToCSV("BaByRns.csv");
+            sampledGraphErByRns.PrintToCSV("ErByRns.csv");
+            sampledGraphBaByRdn.PrintToCSV("BaByRdn.csv");
+            sampledGraphErByRdn.PrintToCSV("ErByRdn.csv");
 
             Console.ReadKey();
         }

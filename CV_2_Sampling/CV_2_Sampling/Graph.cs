@@ -37,27 +37,77 @@ namespace CV_2_Sampling
         {
             var sampledGraph = new Graph();
 
+            // nodes
             for (int i = 0; i < NodeList.Count; i++)
             {
                 double randomNumber = _rnd.NextDouble();
-                if (randomNumber < probability)`s
+                if (randomNumber <= probability)
                 {
                     if (!sampledGraph.NodeList.Contains(NodeList[i]))
                     {
                         sampledGraph.NodeList.Add(new GraphNode(NodeList[i].Id));
-                        foreach (var neigbour in NodeList[i].Neighbors)
+                    }
+                }
+            }
+            // edges
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                for (int j = i + 1; j < NodeList.Count; j++)
+                {
+                    if (i != j && NodeList[i].Neighbors.Contains(NodeList[j]))
+                    {
+                        if (sampledGraph.NodeList.Contains(NodeList[i]) && sampledGraph.NodeList.Contains(NodeList[j]))
                         {
-                            if (!sampledGraph.NodeList.Contains(neigbour))
-                            {
-                                sampledGraph.NodeList.Add(new GraphNode(neigbour.Id));
-                                var indexOfMainNode = sampledGraph.NodeList.IndexOf(NodeList[i]);
-                                var indexOfNeigbour = sampledGraph.NodeList.IndexOf(neigbour);
-                                sampledGraph.NodeList[indexOfMainNode].Neighbors.Add(sampledGraph)
-                            }
+                            int node1 = sampledGraph.NodeList.IndexOf(NodeList[i]);
+                            int node2 = sampledGraph.NodeList.IndexOf(NodeList[j]);
+                            sampledGraph.NodeList[node1].Neighbors.Add(sampledGraph.NodeList[node2]);
+                            sampledGraph.NodeList[node2].Neighbors.Add(sampledGraph.NodeList[node1]);
                         }
                     }
                 }
             }
+
+
+
+            return sampledGraph;
+        }
+
+        public Graph DegreeBasedSampling(double probability)
+        {
+            var sampledGraph = new Graph();
+
+            // nodes
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                double randomNumber = _rnd.NextDouble();
+                int nodeDegree = NodeList[i].Neighbors.Count();
+                if (randomNumber <= probability / nodeDegree)
+                {
+                    if (!sampledGraph.NodeList.Contains(NodeList[i]))
+                    {
+                        sampledGraph.NodeList.Add(new GraphNode(NodeList[i].Id));
+                    }
+                }
+            }
+            // edges
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                for (int j = i + 1; j < NodeList.Count; j++)
+                {
+                    if (i != j && NodeList[i].Neighbors.Contains(NodeList[j]))
+                    {
+                        if (sampledGraph.NodeList.Contains(NodeList[i]) && sampledGraph.NodeList.Contains(NodeList[j]))
+                        {
+                            int node1 = sampledGraph.NodeList.IndexOf(NodeList[i]);
+                            int node2 = sampledGraph.NodeList.IndexOf(NodeList[j]);
+                            sampledGraph.NodeList[node1].Neighbors.Add(sampledGraph.NodeList[node2]);
+                            sampledGraph.NodeList[node2].Neighbors.Add(sampledGraph.NodeList[node1]);
+                        }
+                    }
+                }
+            }
+
+
 
             return sampledGraph;
         }
