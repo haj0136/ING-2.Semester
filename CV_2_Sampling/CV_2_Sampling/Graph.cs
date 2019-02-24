@@ -75,13 +75,14 @@ namespace CV_2_Sampling
         public Graph DegreeBasedSampling(double probability)
         {
             var sampledGraph = new Graph();
+            float m = CountEdges();
 
             // nodes
             for (int i = 0; i < NodeList.Count; i++)
             {
                 double randomNumber = _rnd.NextDouble();
                 int nodeDegree = NodeList[i].Neighbors.Count();
-                if (randomNumber <= probability / nodeDegree)
+                if (randomNumber <= probability + nodeDegree / m)
                 {
                     if (!sampledGraph.NodeList.Contains(NodeList[i]))
                     {
