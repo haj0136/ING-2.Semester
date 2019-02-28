@@ -1,0 +1,7 @@
+vstupy: x,y
+vystoup: nad primkou , pod primkou
+aktivaèní fuknce : signum (-1,0,1)
+
+funkce: 2x+1
+
+knihovny: numpy, matplotlib => pyplot
