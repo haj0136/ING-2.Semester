@@ -45,19 +45,20 @@ namespace CV_3_Kernighan
 
             var group1 = groups[0].ToList();
             var group2 = groups[1].ToList();
-            var usedEdges = new HashSet<(int i, int j)>();
+            var usedNodes = new HashSet<GraphNode>();
 
 
-            while (usedEdges.Count < (numberOfNodes/2) * (numberOfNodes/2))
+            while (usedNodes.Count < numberOfNodes)
             {
                 var cutSizes = new Dictionary<(int i, int j), int>();
                 int originalCutSize = CutSize(group1, group2);
 
                 for (int i = 0; i < group1.Count; i++)
                 {
+                    if (usedNodes.Contains(group1[i])) continue;
                     for (int j = 0; j < group2.Count; j++)
                     {
-                        if (usedEdges.Contains((i, j))) continue;
+                        if (usedNodes.Contains(group2[j])) continue;
                         var group1Copy = new List<GraphNode>(group1);
                         var group2Copy = new List<GraphNode>(group2);
                         group1Copy.Remove(group1[i]);
@@ -71,6 +72,8 @@ namespace CV_3_Kernighan
                 int minimalCutSize = cutSizes.Values.Min();
                 var indexes = cutSizes.FirstOrDefault(x => x.Value == minimalCutSize).Key;
 
+                usedNodes.Add(group1[indexes.i]);
+                usedNodes.Add(group2[indexes.j]);
                 group1[indexes.i].GroupId = 1;
                 group2[indexes.j].GroupId = 0;
                 group1.Add(group2[indexes.j]);
@@ -78,7 +81,6 @@ namespace CV_3_Kernighan
                 group1.Remove(group1[indexes.i]);
                 group2.Remove(group2[indexes.j]);
 
-                usedEdges.Add(indexes);
             }
 
             Console.ReadKey();
