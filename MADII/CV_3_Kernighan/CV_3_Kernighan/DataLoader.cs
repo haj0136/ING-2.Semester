@@ -15,8 +15,8 @@ namespace CV_3_Kernighan
             foreach (string row in rows)
             {
                 List<string> attributes = row.Split(';').ToList();
-                g.NodeList[Int32.Parse(attributes[0]) - 1].Neighbours.Add(g.NodeList[Int32.Parse(attributes[1]) - 1]);
-                g.NodeList[Int32.Parse(attributes[1]) - 1].Neighbours.Add(g.NodeList[Int32.Parse(attributes[0]) - 1]);
+                g.NodeList[Int32.Parse(attributes[0]) - 1].Neighbors.Add(g.NodeList[Int32.Parse(attributes[1]) - 1]);
+                g.NodeList[Int32.Parse(attributes[1]) - 1].Neighbors.Add(g.NodeList[Int32.Parse(attributes[0]) - 1]);
             }
             return g;
         }

@@ -9,28 +9,28 @@ namespace CV_3_Kernighan
     public class GraphNode
     {
         public int Id { get; }
-        public List<GraphNode> Neighbours { get; set; }
+        public List<GraphNode> Neighbors { get; set; }
         public int Degree { get; set; }
-        public float ClusteringCoeficient { get; set; }
+        public float ClusteringCoefficient { get; set; }
         public int GroupId { get; set; }
 
         public GraphNode(int id)
         {
-            Neighbours = new List<GraphNode>();
+            Neighbors = new List<GraphNode>();
             Id = id;
         }
 
         public GraphNode(GraphNode graphNode)
         {
-            Neighbours = new List<GraphNode>(graphNode.Neighbours);
+            Neighbors = new List<GraphNode>(graphNode.Neighbors);
             Id = graphNode.Id;
             Degree = graphNode.Degree;
-            ClusteringCoeficient = graphNode.ClusteringCoeficient;
+            ClusteringCoefficient = graphNode.ClusteringCoefficient;
         }
 
         public bool isNeighbor(GraphNode node)
         {
-            if (Neighbours.Contains(node))
+            if (Neighbors.Contains(node))
             {
                 return true;
             }else

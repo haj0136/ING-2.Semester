@@ -9,7 +9,7 @@ namespace CV_3_Kernighan
 {
     public class Graph
     {
-        public List<GraphNode> NodeList { get; }
+        public List<GraphNode> NodeList { get; set; }
 
         public double AverageDegree { get; set; }
 
@@ -22,6 +22,24 @@ namespace CV_3_Kernighan
             {
                 NodeList.Add(new GraphNode(i + 1));
             }
+        }
+
+        public void PrintToCSV(string filePath)
+        {
+            var csv = new StringBuilder();
+            csv.Append("Source;Target\n");
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                for (int j = i + 1; j < NodeList.Count; j++)
+                {
+                    if (i != j && NodeList[i].Neighbors.Contains(NodeList[j]))
+                    {
+                        csv.Append($"{NodeList[i].Id};{NodeList[j].Id}\n");
+                    }
+                }
+            }
+
+            File.WriteAllText(filePath, csv.ToString());
         }
 
         //shlukovací efekt
@@ -38,7 +56,7 @@ namespace CV_3_Kernighan
             foreach (var item in set)
             {
                 var temp = NodeList.Where(x => x.Degree == item).Select(x => x);
-                map[item] = temp.Sum(x => x.ClusteringCoeficient) / temp.Count();
+                map[item] = temp.Sum(x => x.ClusteringCoefficient) / temp.Count();
             }
             foreach (var item in map)
             {

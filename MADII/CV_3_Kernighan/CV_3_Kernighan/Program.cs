@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace CV_3_Kernighan
                 {
                     randomNumber = 0;
                 }
-                node.Degree = node.Neighbours.Count;
+                node.Degree = node.Neighbors.Count;
                 node.GroupId = randomNumber;
                 if(randomNumber == 0)
                 {
@@ -80,6 +81,15 @@ namespace CV_3_Kernighan
 
                 usedEdges.Add(indexes);
             }
+
+            var group1Graph = new Graph(0);
+            var group2Graph = new Graph(0);
+
+            group1Graph.NodeList = group1;
+            group2Graph.NodeList = group2;
+
+            group1Graph.PrintToCSV("g1");
+            group2Graph.PrintToCSV("g2");
 
             Console.ReadKey();
         }
