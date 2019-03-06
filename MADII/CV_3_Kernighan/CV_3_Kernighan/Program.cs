@@ -90,8 +90,8 @@ namespace CV_3_Kernighan
             group1Graph.NodeList = group1;
             group2Graph.NodeList = group2;
 
-            group1Graph.PrintToCSV("g1");
-            group2Graph.PrintToCSV("g2");
+            group1Graph.PrintToCSV("g1.csv");
+            group2Graph.PrintToCSV("g2.csv");
 
             Console.ReadKey();
         }
