@@ -67,9 +67,20 @@ namespace CV_3_Kernighan
             File.WriteAllText(filePath, csv.ToString());
         }
 
-        public void CutSize()
+        public double[,] ToMatrix()
         {
-           
+            var matrix = new double[NodeList.Count, NodeList.Count];
+
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                foreach (var t in NodeList[i].Neighbors)
+                {
+                    int nodeIndex = NodeList.IndexOf(t);
+                    matrix[i, nodeIndex] = 1;
+                }
+            }
+
+            return matrix;
         }
     }
 }
