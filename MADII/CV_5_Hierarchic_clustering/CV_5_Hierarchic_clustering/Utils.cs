@@ -14,7 +14,8 @@ namespace CV_5_Hierarchic_clustering
             {
                 for (int j = 0; j < matrix.GetLength(0); j++)
                 {
-                    Console.Write(String.Format("{0:0.00}", matrix[i, j]));
+                    Console.Write(typeof(T) == typeof(int) ? $"{matrix[i, j]:0}" : $"{matrix[i, j]:0.00}");
+
                     Console.Write(" ");
                 }
                 Console.WriteLine();
@@ -51,7 +52,7 @@ namespace CV_5_Hierarchic_clustering
             }
 
             if (aa == 0)
-                return bb == 0 ? 1.0 : 0.0;
+                return 0.0; //return bb == 0 ? 1.0 : 0.0;
             else if (bb == 0)
                 return 0.0;
             else

@@ -9,17 +9,17 @@ namespace CV_5_Hierarchic_clustering
 {
     public class DataLoader
     {
-        //public Graph LoadData(Graph g)
-        //{
-        //    List<string> rows = LoadCsvFile("KarateClub.csv");
-        //    foreach (string row in rows)
-        //    {
-        //        List<string> attributes = row.Split(';').ToList();
-        //        g.NodeList[Int32.Parse(attributes[0]) - 1].Neighbours.Add(g.NodeList[Int32.Parse(attributes[1]) - 1]);
-        //        g.NodeList[Int32.Parse(attributes[1]) - 1].Neighbours.Add(g.NodeList[Int32.Parse(attributes[0]) - 1]);
-        //    }
-        //    return g;
-        //}
+        public Graph LoadData(Graph g)
+        {
+            List<string> rows = LoadCsvFile("Data/KarateClub.csv");
+            foreach (string row in rows)
+            {
+                List<string> attributes = row.Split(';').ToList();
+                g.NodeList[Int32.Parse(attributes[0]) - 1].Neighbors.Add(g.NodeList[Int32.Parse(attributes[1]) - 1]);
+                g.NodeList[Int32.Parse(attributes[1]) - 1].Neighbors.Add(g.NodeList[Int32.Parse(attributes[0]) - 1]);
+            }
+            return g;
+        }
 
         public int[,] LoadDataToMatrix(int[,] matrix)
         {
