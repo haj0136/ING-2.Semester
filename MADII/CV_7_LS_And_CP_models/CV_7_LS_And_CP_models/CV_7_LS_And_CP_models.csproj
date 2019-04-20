@@ -45,6 +45,7 @@
     <Compile Include="Graph.cs" />
     <Compile Include="GraphGenerator.cs" />
     <Compile Include="GraphNode.cs" />
+    <Compile Include="GraphUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
