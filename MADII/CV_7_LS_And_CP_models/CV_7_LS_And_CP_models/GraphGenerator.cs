@@ -63,7 +63,7 @@ namespace CV_7_LS_And_CP_models
                 {
                     if (randomNumber < agingProbability.Value)
                     {
-                        randomNode = agingProbability.Key
+                        randomNode = agingProbability.Key;
                     }
                 }
 
