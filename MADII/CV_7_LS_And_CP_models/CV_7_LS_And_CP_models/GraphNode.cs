@@ -12,6 +12,7 @@ namespace CV_7_LS_And_CP_models
         public List<GraphNode> Neighbors { get; set; }
         public int Degree { get; set; }
         public float ClusteringCoefficient { get; set; }
+        public int Time { get; set; }
 
         public GraphNode(int id)
         {
@@ -25,6 +26,7 @@ namespace CV_7_LS_And_CP_models
             Id = graphNode.Id;
             Degree = graphNode.Degree;
             ClusteringCoefficient = graphNode.ClusteringCoefficient;
+            Time = graphNode.Time;
         }
 
         public bool Equals(GraphNode obj)

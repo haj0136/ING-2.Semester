@@ -34,6 +34,18 @@ namespace CV_7_LS_And_CP_models
             }
         }
 
+        public Dictionary<int, double> GetAgingProbabilities(int actualTime, double v)
+        {
+            var probabilities = new Dictionary<int, double>();
+            foreach (var graphNode in NodeList)
+            {
+                var previousProbability = graphNode.Id <= 1 ? 0 : probabilities[graphNode.Id - 1];
+                probabilities.Add(graphNode.Id, Math.Pow(actualTime - graphNode.Time, -v) + previousProbability);
+            }
+
+            return probabilities;
+        }
+
         public Graph RandomNodeSampling(double probability)
         {
             var sampledGraph = new Graph();
