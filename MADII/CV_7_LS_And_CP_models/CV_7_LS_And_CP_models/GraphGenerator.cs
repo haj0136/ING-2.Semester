@@ -55,7 +55,6 @@ namespace CV_7_LS_And_CP_models
             for (int i = 0; i < _numberOfNodes - _m0; i++)
             {
                 var newNode = new GraphNode(_m0 + 1 + i);
-                var posibilities = new List<double>();
                 int randomNode = -1;
                 var agingProbabilities = graph.GetAgingProbabilities(time, _probability);
                 double randomNumber = _rnd.NextDouble() * agingProbabilities[agingProbabilities.Count];
@@ -64,7 +63,7 @@ namespace CV_7_LS_And_CP_models
                 {
                     if (randomNumber < agingProbability.Value)
                     {
-                        randomNode = agingProbability.Key;
+                        randomNode = agingProbability.Key
                     }
                 }
 
