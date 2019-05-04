@@ -10,7 +10,12 @@ namespace CV_9_MultiLayerNetworks
     {
         static void Main(string[] args)
         {
+            var graph = new Graph();
+            DataLoader.LoadData(graph, "DATA/florentine.mpx");
 
+            graph.PrintDegreeCentrality();
+            Console.WriteLine();
+            graph.PrintNeighborhoodCentrality();
         }
     }
 }
