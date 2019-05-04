@@ -44,13 +44,16 @@
   <ItemGroup>
     <Compile Include="Actor.cs" />
     <Compile Include="DataLoader.cs" />
-    <Compile Include="Graph.cs" />
-    <Compile Include="GraphNode.cs" />
+    <Compile Include="MultiGraph.cs" />
+    <Compile Include="MultiGraphNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="DATA\contact_list.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DATA\florentine.mpx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

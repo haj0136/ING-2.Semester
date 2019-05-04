@@ -10,12 +10,22 @@ namespace CV_9_MultiLayerNetworks
     {
         static void Main(string[] args)
         {
-            var graph = new Graph();
-            DataLoader.LoadData(graph, "DATA/florentine.mpx");
+            //  ############### Part one
+            var multiGraph = new MultiGraph();
+            DataLoader.LoadMultiLayerGraph(multiGraph, "DATA/florentine.mpx");
 
-            graph.PrintDegreeCentrality();
+            multiGraph.PrintDegreeCentrality();
             Console.WriteLine();
-            graph.PrintNeighborhoodCentrality();
+            multiGraph.PrintNeighborhoodCentrality();
+
+            Console.WriteLine();
+            //  ############### Part two
+            var temporalGraph = new MultiGraph();
+            DataLoader.LoadTemporalGraph(temporalGraph, "DATA/contact_list.dat", 5);
+
+            temporalGraph.PrintDegreeCentrality();
+            Console.WriteLine();
+            temporalGraph.PrintNeighborhoodCentrality();
         }
     }
 }

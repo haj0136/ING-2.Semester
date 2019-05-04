@@ -6,39 +6,37 @@ using System.Threading.Tasks;
 
 namespace CV_9_MultiLayerNetworks
 {
-    public class GraphNode
+    public class MultiGraphNode
     {
         public int Id { get; }
-        public List<GraphNode> MarriageLayer { get; set; }
-        public List<GraphNode> BusinessLayer { get; set; }
+        public Dictionary<string, List<MultiGraphNode>> Layers { get; set; }
         public int Degree { get; set; }
         public float ClusteringCoefficient { get; set; }
         public Actor NodeActor { get; }
 
-        public GraphNode(int id, string name)
+        public MultiGraphNode(int id, string name)
         {
-            MarriageLayer = new List<GraphNode>();
-            BusinessLayer = new List<GraphNode>();
+            Layers = new Dictionary<string, List<MultiGraphNode>>();
+
             Id = id;
             NodeActor = new Actor(name);
         }
 
-        public GraphNode(GraphNode graphNode)
+        public MultiGraphNode(MultiGraphNode graphNode)
         {
-            MarriageLayer = new List<GraphNode>(graphNode.MarriageLayer);
-            BusinessLayer = new List<GraphNode>(graphNode.BusinessLayer);
+            Layers = new Dictionary<string,List<MultiGraphNode>>(graphNode.Layers);
             Id = graphNode.Id;
             Degree = graphNode.Degree;
             ClusteringCoefficient = graphNode.ClusteringCoefficient;
         }
 
-        public bool Equals(GraphNode obj)
+        public bool Equals(MultiGraphNode obj)
         {
             return obj.Id == Id;
         }
         public override bool Equals(object obj)
         {
-            return Equals(obj as GraphNode);
+            return Equals(obj as MultiGraphNode);
         }
         public override int GetHashCode()
         {
